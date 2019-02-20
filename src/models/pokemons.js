@@ -7,13 +7,14 @@ export default {
   state: { list: [] },
   reducers: {
     save(state, action) {
-      return { ...state, ...action.payload };
+      const list = action.payload;
+      return { ...state, list };
     }
   },
   effects: {
     *load(action, { call, put }) {
       const data = yield call(request, {
-        url: "https://pokeapi.co/api/v2/pokedex/2/"
+        url: "https://pokeapi.co/api/v2/pokedex/2"
       });
       yield put({ type: "save", payload: data.pokemon_entries });
     }

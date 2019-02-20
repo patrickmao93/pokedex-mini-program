@@ -1,13 +1,13 @@
 import Taro, { Component } from "@tarojs/taro";
 import { connect } from "@tarojs/redux";
-import { View, Image } from "@tarojs/components";
+import { View } from "@tarojs/components";
 
 import { capitalizeFirst } from "./../../utils/formatters";
 import Card from "./../../components/card/Card";
 
 const mapStateToProps = state => {
   return {
-    pokemons: state.pokemons
+    pokemons: state.pokemons.list
   };
 };
 
@@ -27,13 +27,15 @@ class Index extends Component {
     const { pokemons } = this.props;
     return (
       <View className='app'>
-        {pokemons.map(pokemon => (
-          <Card
-            key={pokemon.name}
-            entryNumber={pokemon.entry_number}
-            name={pokemon.pokemon_species.name}
-          />
-        ))}
+        {pokemons.map(pokemon => {
+          const { entry_number, pokemon_species } = pokemon;
+          const name = capitalizeFirst(pokemon_species.name);
+          return (
+            <View key={name} className='card'>
+              <Card entryNumber={entry_number} name={name} />
+            </View>
+          );
+        })}
       </View>
     );
   }

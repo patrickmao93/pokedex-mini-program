@@ -2,12 +2,21 @@ import Taro, { Component } from "@tarojs/taro";
 import { View, Image, Text } from "@tarojs/components";
 
 class Card extends Component {
+  onTap = () => {
+    Taro.navigateTo({ url: "../../pages/pokemon/pokemon" });
+  };
   render() {
-    const { entryNumber, name } = this.props;
+    const { name, entryNumber } = this.props;
     return (
-      <View>
-        <Text>{entryNumber}</Text>
-        <Text>{name}</Text>
+      <View className='card' onClick={this.onTap}>
+        <Image
+          className='sprite'
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${entryNumber}.png`}
+          alt={name}
+        />
+        <View className='name'>
+          <Text>{name}</Text>
+        </View>
       </View>
     );
   }

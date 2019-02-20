@@ -15,10 +15,10 @@ const store = dvaApp.getStore();
 
 class App extends Component {
   config = {
-    pages: ["pages/index/index"],
+    pages: ["pages/index/index", "pages/pokemon/pokemon"],
     window: {
       backgroundTextStyle: "light",
-      navigationBarBackgroundColor: "#0068C4",
+      navigationBarBackgroundColor: "#E61D23",
       navigationBarTitleText: "Pokedex",
       navigationBarTextStyle: "white",
       enablePullDownRefresh: true
