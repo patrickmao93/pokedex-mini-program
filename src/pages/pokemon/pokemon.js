@@ -1,17 +1,39 @@
 import Taro from "@tarojs/taro";
+import { View, Image } from "@tarojs/components";
+import { connect } from "@tarojs/redux";
 
-import { View } from "@tarojs/components";
+import { typeToHexColor } from "../../utils/formatters";
 
+@connect(state => ({
+  pokemon: state.pokemon
+}))
 class Pokemon extends Taro.Component {
   config = {
-    navigationBarTitleText: "pokemon",
+    navigationBarTitleText: "Detail",
     enablePullDownRefresh: true,
     backgroundTextStyle: "dark"
   };
-  componentDidMount() {}
+
+  componentDidMount() {
+    this.props.dispatch({
+      type: "pokemon/load",
+      payload: { id: this.$router.params.id }
+    });
+  }
 
   render() {
-    return <View>{this.$router.params.id}</View>;
+    const { pokemon } = this.props;
+    const background = typeToHexColor(pokemon.types[0]);
+    return (
+      <View className='pokemon' style={{ background }}>
+        <Image
+          className='sprite'
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+            pokemon.id
+          }.png`}
+        />
+      </View>
+    );
   }
 }
 
