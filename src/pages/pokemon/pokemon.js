@@ -8,8 +8,10 @@ class Pokemon extends Taro.Component {
     enablePullDownRefresh: true,
     backgroundTextStyle: "dark"
   };
+  componentDidMount() {}
+
   render() {
-    return <View>Pokemon</View>;
+    return <View>{this.$router.params.id}</View>;
   }
 }
 

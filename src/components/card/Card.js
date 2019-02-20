@@ -3,7 +3,9 @@ import { View, Image, Text } from "@tarojs/components";
 
 class Card extends Component {
   onTap = () => {
-    Taro.navigateTo({ url: "../../pages/pokemon/pokemon" });
+    Taro.navigateTo({
+      url: `/pages/pokemon/pokemon?id=${this.props.entryNumber}`
+    });
   };
   render() {
     const { name, entryNumber } = this.props;
