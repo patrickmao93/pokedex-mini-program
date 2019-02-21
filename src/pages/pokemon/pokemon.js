@@ -24,6 +24,9 @@ class Pokemon extends Taro.Component {
 
   render() {
     const { pokemon } = this.props;
+    if (pokemon.loading) {
+      return <View className='pokemon' />;
+    }
     const typeColor = typeToHexColor(pokemon.types[0]);
     return (
       <View className='pokemon'>

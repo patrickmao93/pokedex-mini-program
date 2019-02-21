@@ -9,7 +9,8 @@ export default {
     name: "",
     types: [],
     sprites: {},
-    stats: []
+    stats: [],
+    loading: true
   },
   reducers: {
     save(state, { payload }) {
@@ -24,11 +25,19 @@ export default {
         types,
         stats
       };
-      return { ...state, ...pokemon };
+      Taro.hideLoading();
+      return { ...state, ...pokemon, loading: false };
+    },
+    loading(state, { payload }) {
+      return { ...state, loading: payload.loading };
     }
   },
   effects: {
     *load({ payload }, { call, put }) {
+      Taro.showLoading({
+        title: "loading"
+      });
+      yield put({ type: "loading", payload: { loading: true } });
       const data = yield call(request, {
         url: `https://pokeapi.co/api/v2/pokemon/${payload.id}`
       });
