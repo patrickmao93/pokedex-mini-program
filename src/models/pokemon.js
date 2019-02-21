@@ -8,15 +8,21 @@ export default {
     id: 0,
     name: "",
     types: [],
-    sprites: {}
+    sprites: {},
+    stats: []
   },
   reducers: {
     save(state, { payload }) {
-      const types = payload.types.map(type => type.type.name);
+      const types = payload.types.map(type => type.type.name).reverse();
+      const stats = payload.stats.map(stat => ({
+        name: stat.stat.name,
+        value: stat.base_stat
+      }));
       const pokemon = {
         id: payload.id,
         name: payload.name,
-        types
+        types,
+        stats
       };
       return { ...state, ...pokemon };
     }

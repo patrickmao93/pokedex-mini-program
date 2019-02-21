@@ -1,6 +1,75 @@
 .pokemon {
-  .sprite {
-    width: 300px;
-    height: 300px;
+  position: relative;
+  background: #e61d23;
+  padding-top: 20px;
+  min-height: 100vh;
+  .screen {
+    box-shadow: 0 2px 2px rgba($color: #000000, $alpha: 0.2);
+    background: white;
+    border-radius: 6px;
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+    .name {
+      position: absolute;
+      top: 16px;
+      left: 0;
+      padding: 10px 20px;
+      color: white;
+      font-weight: bold;
+      z-index: 1;
+
+      &-text {
+        position: relative;
+        z-index: 1;
+      }
+
+      &-background {
+        transform: skewX(30deg);
+        position: absolute;
+        width: 150%;
+        height: 100%;
+        top: 0;
+        left: -50%;
+        box-shadow: 0 2px 12px rgba($color: #000000, $alpha: 0.2);
+        z-index: 0;
+      }
+    }
+
+    .image-container {
+      background: lightblue;
+      border-radius: 6px;
+      margin-right: 20px;
+      .sprite {
+        width: 300px;
+        height: 300px;
+      }
+    }
+
+    .stats {
+      height: 300px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 40px;
+      padding-bottom: 16px;
+
+      .stat-container {
+        position: relative;
+        .stat-name {
+          position: absolute;
+          bottom: 5px;
+          font-size: 0.7rem;
+        }
+
+        .stat-bar {
+          overflow: hidden;
+          border-radius: 5px;
+        }
+      }
+    }
   }
 }

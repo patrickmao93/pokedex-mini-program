@@ -1,8 +1,9 @@
 import Taro from "@tarojs/taro";
-import { View, Image } from "@tarojs/components";
+import { View, Image, Progress, Text } from "@tarojs/components";
 import { connect } from "@tarojs/redux";
 
-import { typeToHexColor } from "../../utils/formatters";
+import { typeToHexColor, capitalizeFirst } from "../../utils/formatters";
+import Pill from "../../components/pill/Pill";
 
 @connect(state => ({
   pokemon: state.pokemon
@@ -23,15 +24,49 @@ class Pokemon extends Taro.Component {
 
   render() {
     const { pokemon } = this.props;
-    const background = typeToHexColor(pokemon.types[0]);
+    const typeColor = typeToHexColor(pokemon.types[0]);
     return (
-      <View className='pokemon' style={{ background }}>
-        <Image
-          className='sprite'
-          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-            pokemon.id
-          }.png`}
-        />
+      <View className='pokemon'>
+        <View className='screen'>
+          <View className='name'>
+            <View
+              className='name-background'
+              style={{ background: typeColor }}
+            />
+            <Text className='name-text'>
+              #{pokemon.id + " " + capitalizeFirst(pokemon.name)}
+            </Text>
+          </View>
+          <View className='image-container'>
+            <View className='types'>
+              {/* {pokemon.types.map(type => (
+                <Pill key={type.name} color={typeColor}>
+                  {type.name}
+                </Pill>
+              ))} */}
+            </View>
+            <Image
+              className='sprite'
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+                pokemon.id
+              }.png`}
+            />
+          </View>
+          <View className='stats'>
+            {pokemon.stats.map(stat => (
+              <View className='stat-container' key={stat.name}>
+                <Text className='stat-name'>{capitalizeFirst(stat.name)}</Text>
+                <View className='stat-bar'>
+                  <Progress
+                    percent={stat.value}
+                    strokeWidth={2}
+                    color={typeColor}
+                  />
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
       </View>
     );
   }
