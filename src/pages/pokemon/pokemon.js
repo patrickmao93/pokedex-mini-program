@@ -28,50 +28,48 @@ class Pokemon extends Taro.Component {
       return <View className='pokemon' />;
     }
     const typeColor = typeToHexColor(pokemon.types[0]);
-    return (
-      <View className='pokemon'>
-        <View className='screen'>
-          <View className='name'>
-            <View
-              className='name-background'
-              style={{ background: typeColor }}
-            />
-            <Text className='name-text'>
-              #{pokemon.id + " " + capitalizeFirst(pokemon.name)}
-            </Text>
-          </View>
-          <View className='image-container'>
-            <View className='types'>
-              {/* {pokemon.types.map(type => (
-                <Pill key={type.name} color={typeColor}>
-                  {type.name}
-                </Pill>
-              ))} */}
-            </View>
-            <Image
-              className='sprite'
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-                pokemon.id
-              }.png`}
-            />
-          </View>
-          <View className='stats'>
-            {pokemon.stats.map(stat => (
-              <View className='stat-container' key={stat.name}>
-                <Text className='stat-name'>{capitalizeFirst(stat.name)}</Text>
-                <View className='stat-bar'>
-                  <Progress
-                    percent={stat.value}
-                    strokeWidth={2}
-                    color={typeColor}
-                  />
-                </View>
-              </View>
+
+    const mainInfo = (
+      <View className='screen'>
+        <View className='name'>
+          <View className='name-background' style={{ background: typeColor }} />
+          <Text className='name-text'>
+            #{pokemon.id + " " + capitalizeFirst(pokemon.name)}
+          </Text>
+        </View>
+        <View className='image-container'>
+          <View className='types'>
+            {pokemon.types.map(type => (
+              <Pill key={type} color={typeToHexColor(type)}>
+                {capitalizeFirst(type)}
+              </Pill>
             ))}
           </View>
+          <Image
+            className='sprite'
+            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+              pokemon.id
+            }.png`}
+          />
+        </View>
+        <View className='stats'>
+          {pokemon.stats.map(stat => (
+            <View className='stat-container' key={stat.name}>
+              <Text className='stat-name'>{capitalizeFirst(stat.name)}</Text>
+              <View className='stat-bar'>
+                <Progress
+                  percent={stat.value}
+                  strokeWidth={2}
+                  color={typeColor}
+                />
+              </View>
+            </View>
+          ))}
         </View>
       </View>
     );
+
+    return <View className='pokemon'>{mainInfo}</View>;
   }
 }
 

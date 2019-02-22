@@ -26,7 +26,7 @@ export default {
         stats
       };
       Taro.hideLoading();
-      return { ...state, ...pokemon, loading: false };
+      return { ...state, ...pokemon };
     },
     loading(state, { payload }) {
       return { ...state, loading: payload.loading };
@@ -42,6 +42,7 @@ export default {
         url: `https://pokeapi.co/api/v2/pokemon/${payload.id}`
       });
       yield put({ type: "save", payload: data });
+      yield put({ type: "loading", payload: { loading: false } });
     }
   }
 };
