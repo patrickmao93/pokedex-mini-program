@@ -5,6 +5,16 @@ export const capitalizeFirst = str => {
   return str[0].toUpperCase() + str.slice(1);
 };
 
+export const removeSpaces = str => {
+  if (!str) {
+    return "";
+  }
+  return str
+    .toLowerCase()
+    .split(" ")
+    .join("");
+};
+
 export const typeToHexColor = str => {
   const map = {
     normal: "#AFB0A0",
