@@ -15,7 +15,11 @@ const store = dvaApp.getStore();
 
 class App extends Component {
   config = {
-    pages: ["pages/index/index", "pages/pokemon/pokemon"],
+    pages: [
+      "pages/index/index",
+      "pages/pokemon/pokemon",
+      "pages/search/search"
+    ],
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#E61D23",
