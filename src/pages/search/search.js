@@ -22,7 +22,7 @@ class Search extends Taro.Component {
     this.setState({ keyword: e.target.value });
   };
 
-  handleConfirm = () => {
+  handleSearch = () => {
     const keyword = this.state.keyword.trim().toLowerCase();
     const historyItems = this.state.history.items.slice(0);
 
@@ -33,6 +33,8 @@ class Search extends Taro.Component {
     const index = historyItems.indexOf(keyword);
     if (index !== -1) {
       historyItems.splice(index, 1);
+    } else if (historyItems.length >= 10) {
+      historyItems.pop();
     }
     historyItems.unshift(keyword);
 
@@ -45,8 +47,8 @@ class Search extends Taro.Component {
     //execute search
   };
 
-  handleHistoryItemTap = item => {
-    this.setState({ keyword: item }, this.handleConfirm);
+  handleItemTap = item => {
+    this.setState({ keyword: item }, this.handleSearch);
   };
 
   componentDidMount() {
@@ -68,13 +70,13 @@ class Search extends Taro.Component {
     const searchHelpers = (
       <Block>
         <View className='recommendation'>
-          <Recommendation />
+          <Recommendation onTapItem={this.handleItemTap} />
         </View>
 
         <View className='history'>
           <SearchHistory
             items={this.state.history.items}
-            onTapItem={this.handleHistoryItemTap}
+            onTapItem={this.handleItemTap}
           />
         </View>
       </Block>
@@ -88,7 +90,7 @@ class Search extends Taro.Component {
             focus
             value={this.state.keyword}
             onInput={this.handleInput}
-            onConfirm={this.handleConfirm}
+            onConfirm={this.handleSearch}
           />
         </View>
         {this.state.showResult ? searchResult : searchHelpers}

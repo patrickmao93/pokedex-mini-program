@@ -5,17 +5,22 @@ import Pill from "../../../components/pill/Pill";
 
 import "./recommendation.scss";
 
+const recommendations = ["Mewtwo", "Dragonite", "Fire"];
+
 class Recommendation extends Taro.Component {
   render() {
+    const { onTapItem } = this.props;
     return (
       <View className='recommendation'>
         <View className='header'>
           <Text>POPULAR</Text>
         </View>
         <View className='content'>
-          <Pill color='black'>Mewtwo</Pill>
-          <Pill color='black'>Mewtwo</Pill>
-          <Pill color='black'>Mewtwo</Pill>
+          {recommendations.map(item => (
+            <Pill key={item} color='black' onTap={() => onTapItem(item)}>
+              {item}
+            </Pill>
+          ))}
         </View>
       </View>
     );
