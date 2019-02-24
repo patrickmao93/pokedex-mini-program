@@ -5,7 +5,8 @@ import { connect } from "@tarojs/redux";
 import SearchBar from "../../components/searchBar/SearchBar";
 import Recommendation from "./recommendation/recommendation";
 import SearchHistory from "./searchHistory/searchHistory";
-import { searchByName, searchByType } from "./../../utils/search";
+import SearchResult from "./searchResult/searchResult";
+import { searchByName } from "./../../utils/search";
 
 import "./search.scss";
 
@@ -16,10 +17,22 @@ class Search extends Taro.Component {
     backgroundTextStyle: "dark"
   };
 
-  state = { keyword: "", showResult: false, history: { items: [] } };
+  state = {
+    keyword: "",
+    showResult: false,
+    searchResult: [],
+    history: { items: [] }
+  };
 
   handleInput = e => {
+    if (!e.target.value) {
+      this.setState({ showResult: false });
+    }
     this.setState({ keyword: e.target.value });
+  };
+
+  handleFocus = () => {
+    this.setState({ showResult: false });
   };
 
   handleSearch = () => {
@@ -42,9 +55,11 @@ class Search extends Taro.Component {
       items: historyItems
     };
     this.setState({ history: newHistory });
-
     Taro.setStorage({ key: "searchHistory", data: this.state.history });
     //execute search
+    const searchByNameResult = searchByName(this.props.pokemons, keyword);
+    console.log(searchByNameResult);
+    this.setState({ searchResult: searchByNameResult, showResult: true });
   };
 
   handleItemTap = item => {
@@ -65,9 +80,9 @@ class Search extends Taro.Component {
   }
 
   render() {
-    const searchResult = <View className='search-result' />;
+    const renderResult = <SearchResult list={this.state.searchResult} />;
 
-    const searchHelpers = (
+    const renderHelpers = (
       <Block>
         <View className='recommendation'>
           <Recommendation onTapItem={this.handleItemTap} />
@@ -91,9 +106,10 @@ class Search extends Taro.Component {
             value={this.state.keyword}
             onInput={this.handleInput}
             onConfirm={this.handleSearch}
+            onFocus={this.handleFocus}
           />
         </View>
-        {this.state.showResult ? searchResult : searchHelpers}
+        {this.state.showResult ? renderResult : renderHelpers}
       </View>
     );
   }

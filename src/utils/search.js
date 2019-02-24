@@ -2,8 +2,8 @@ import { removeSpaces } from "./formatters";
 
 export const searchByName = (pokemonList, keyword) => {
   const formattedKeyword = removeSpaces(keyword);
-  pokemonList.filter(pokemon => {
-    const formattedName = pokemon.name.toLowerCase();
+  return pokemonList.filter(pokemon => {
+    const formattedName = pokemon.pokemon_species.name.toLowerCase();
     return formattedName.includes(formattedKeyword);
   });
 };
