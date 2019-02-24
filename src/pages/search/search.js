@@ -30,7 +30,12 @@ class Search extends Taro.Component {
       return;
     }
 
-    historyItems.push(keyword);
+    const index = historyItems.indexOf(keyword);
+    if (index !== -1) {
+      historyItems.splice(index, 1);
+    }
+    historyItems.unshift(keyword);
+
     const newHistory = {
       items: historyItems
     };
