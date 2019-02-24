@@ -6,6 +6,8 @@ import { capitalizeFirst } from "./../../utils/formatters";
 import Card from "./../../components/card/Card";
 import SearchBar from "./../../components/searchBar/SearchBar";
 
+import "./index.scss";
+
 const mapStateToProps = state => {
   return {
     pokemons: state.pokemons.list

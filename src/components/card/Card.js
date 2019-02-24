@@ -1,8 +1,9 @@
 import Taro, { Component } from "@tarojs/taro";
 import { View, Image, Text } from "@tarojs/components";
 
+import "./Card.scss";
+
 class Card extends Component {
- 
   render() {
     const { name, entryNumber } = this.props;
     return (

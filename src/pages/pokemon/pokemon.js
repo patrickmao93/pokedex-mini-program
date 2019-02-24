@@ -5,6 +5,8 @@ import { connect } from "@tarojs/redux";
 import { typeToHexColor, capitalizeFirst } from "../../utils/formatters";
 import Pill from "../../components/pill/Pill";
 
+import "./pokemon.scss";
+
 @connect(state => ({
   pokemon: state.pokemon
 }))

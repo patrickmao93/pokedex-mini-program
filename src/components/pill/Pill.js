@@ -1,6 +1,7 @@
 import Taro from "@tarojs/taro";
-
 import { View, Text } from "@tarojs/components";
+
+import "./Pill.scss";
 
 class Pill extends Taro.Component {
   render() {

@@ -1,6 +1,8 @@
 import Taro from "@tarojs/taro";
 import { View, Input, Icon } from "@tarojs/components";
 
+import "./SearchBar.scss";
+
 class SearchBar extends Taro.Component {
   render() {
     let {
@@ -8,7 +10,7 @@ class SearchBar extends Taro.Component {
       color,
       focus,
       disabled,
-      onChange,
+      onInput,
       value,
       onConfirm
     } = this.props;
@@ -23,7 +25,7 @@ class SearchBar extends Taro.Component {
           placeholder={placeholder}
           focus={focus}
           disabled={disabled}
-          onChange={onChange}
+          onInput={onInput}
           value={value}
           onConfirm={onConfirm}
         />
