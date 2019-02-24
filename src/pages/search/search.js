@@ -45,6 +45,10 @@ class Search extends Taro.Component {
     //execute search
   };
 
+  handleHistoryItemTap = item => {
+    this.setState({ keyword: item }, this.handleConfirm);
+  };
+
   componentDidMount() {
     Taro.getStorageInfo()
       .then(res => res.keys.includes("searchHistory"))
@@ -68,7 +72,10 @@ class Search extends Taro.Component {
         </View>
 
         <View className='history'>
-          <SearchHistory items={this.state.history.items} />
+          <SearchHistory
+            items={this.state.history.items}
+            onTapItem={this.handleHistoryItemTap}
+          />
         </View>
       </Block>
     );
