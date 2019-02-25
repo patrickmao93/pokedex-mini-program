@@ -5,6 +5,7 @@ import { View } from "@tarojs/components";
 import { capitalizeFirst } from "./../../utils/formatters";
 import Card from "./../../components/card/Card";
 import SearchBar from "./../../components/searchBar/SearchBar";
+import Pokemons from "./../../components/pokemons/Pokemons";
 
 import "./index.scss";
 
@@ -49,21 +50,7 @@ class Index extends Component {
             disabled
           />
         </View>
-        <View className='pokemons'>
-          {pokemons.map(pokemon => {
-            const { entry_number, pokemon_species } = pokemon;
-            const name = capitalizeFirst(pokemon_species.name);
-            return (
-              <View
-                key={name}
-                className='card'
-                onClick={() => this.onTapCard(entry_number)}
-              >
-                <Card entryNumber={entry_number} name={name} />
-              </View>
-            );
-          })}
-        </View>
+        <Pokemons pokemons={pokemons} />
       </View>
     );
   }

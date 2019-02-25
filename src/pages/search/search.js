@@ -35,6 +35,10 @@ class Search extends Taro.Component {
     this.setState({ showResult: false });
   };
 
+  saveHistoryToStorage = () => {
+    Taro.setStorageSync("searchHistory", this.state.history);
+  };
+
   handleSearch = () => {
     const keyword = this.state.keyword.trim().toLowerCase();
     const historyItems = this.state.history.items.slice(0);
@@ -54,11 +58,9 @@ class Search extends Taro.Component {
     const newHistory = {
       items: historyItems
     };
-    this.setState({ history: newHistory });
-    Taro.setStorage({ key: "searchHistory", data: this.state.history });
+    this.setState({ history: newHistory }, this.saveHistoryToStorage);
     //execute search
     const searchByNameResult = searchByName(this.props.pokemons, keyword);
-    console.log(searchByNameResult);
     this.setState({ searchResult: searchByNameResult, showResult: true });
   };
 
@@ -70,7 +72,11 @@ class Search extends Taro.Component {
     const historyItems = this.state.history.items.slice(0);
     historyItems.splice(index, 1);
     const newHistory = { items: historyItems };
-    this.setState({ history: newHistory });
+    this.setState({ history: newHistory }, this.saveHistoryToStorage);
+  };
+
+  handleClear = () => {
+    this.setState({ history: { items: [] } }, this.saveHistoryToStorage);
   };
 
   componentDidMount() {
@@ -100,6 +106,7 @@ class Search extends Taro.Component {
             items={this.state.history.items}
             onTapItem={this.handleItemTap}
             onDeleteItem={this.handleDeleteItem}
+            onClear={this.handleClear}
           />
         </View>
       </Block>

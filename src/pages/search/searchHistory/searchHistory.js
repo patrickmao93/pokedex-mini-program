@@ -1,14 +1,19 @@
 import Taro from "@tarojs/taro";
-import { View, Icon } from "@tarojs/components";
+import { View, Icon, Text } from "@tarojs/components";
 
 import "./searchHistory.scss";
 
 class SearchHistory extends Taro.Component {
   render() {
-    const { items, onTapItem, onDeleteItem } = this.props;
+    const { items, onTapItem, onDeleteItem, onClear } = this.props;
     return (
       <View className='search-history'>
-        <View className='header'>HISTORY</View>
+        <View className='header'>
+          <Text>HISTORY</Text>
+          <View className='clear' onClick={onClear}>
+            Clear
+          </View>
+        </View>
         <View className='content'>
           {items.map((item, index) => {
             return (
