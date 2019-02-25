@@ -5,7 +5,7 @@ import "./searchHistory.scss";
 
 class SearchHistory extends Taro.Component {
   render() {
-    const { items, onTapItem } = this.props;
+    const { items, onTapItem, onDeleteItem } = this.props;
     return (
       <View className='search-history'>
         <View className='header'>HISTORY</View>
@@ -19,7 +19,13 @@ class SearchHistory extends Taro.Component {
               >
                 <View className='keyword'>{item}</View>
                 <View className='delete'>
-                  <Icon type='clear' />
+                  <Icon
+                    type='clear'
+                    onClick={e => {
+                      e.stopPropagation();
+                      onDeleteItem(index);
+                    }}
+                  />
                 </View>
               </View>
             );
